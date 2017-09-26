@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {//加这个配置是防止出现编译异常 com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/LICENSE
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        //这个是解决重复引用v4包的时候AS编译异常
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.zhy:autolayout:1.4.5'
+    //万能适配的库
+    compile 'com.android.support:multidex:1.0.1'
+    //这是防止app方法数超过AS的编译限制（可以超过64k）但是要在你的app的gradle里面加上 multiDexEnabled true//编译方法数量可以超过64k
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //这是腾讯的抓取异常的库 自己要在BaseApplication里面配置一下ID
+    compile 'com.yanzhenjie:permission:1.0.6'
+    //处理android5.0以上危险权限申请的库 使用方法见：https://github.com/yanzhenjie/AndPermission/blob/master/README-CN.md
+    compile 'com.alibaba:fastjson:1.2.31'
+    //解析json的库`
+    compile 'com.blankj:utilcode:1.8.6'//快速开发工具库
+}
+
