@@ -9,7 +9,7 @@ android快速开发框架 基于mvp设计模式
  
      1： 在 dependencies 标签下面添加 
 
-          classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
      2： 在repositories 标签下面添加
 
