@@ -1,6 +1,8 @@
 # base_mvp
 android快速开发框架 基于mvp设计模式
+
 引用方式：
+
 在Android Studio里面配置Jitpack插件
 
  在项目的根目录下的 build.gradle 文件里面添加
