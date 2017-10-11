@@ -12,5 +12,6 @@ android快速开发框架 基于mvp设计模式
 
          maven { url "https://jitpack.io" }
          
-     3： 最后在app或者你要使用的库的build.gradle 文件下面添加
-         compile 'com.github.Android-xiaole:base_mvp:v1.0.0'
+ 最后在app或者你要使用的库的 build.gradle 文件里面的dependencies标签下面添加
+ 
+     compile 'com.github.Android-xiaole:base_mvp:v1.0.0'
