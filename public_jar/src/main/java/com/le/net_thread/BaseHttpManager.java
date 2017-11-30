@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -98,8 +99,12 @@ public abstract class BaseHttpManager {
 		callback.res = res;
     }
 
-    private static void sendHeaders(HttpURLConnection conn, Map<String, String> headers) {
-    	for (Map.Entry<String, String> header : headers.entrySet()) {
+    private static void sendHeaders(HttpURLConnection conn, Map<String, String> headerss) {
+    	for (Map.Entry<String, String> header : headerss.entrySet()) {
+			conn.setRequestProperty(header.getKey(), header.getValue());
+		}
+
+		for (Map.Entry<String, String> header : headers.entrySet()) {
 			conn.setRequestProperty(header.getKey(), header.getValue());
 		}
     }
@@ -118,6 +123,15 @@ public abstract class BaseHttpManager {
         ops.write(bs, 0, bs.length);
         ops.flush();
     }
+
+	public static Map<String,String> headers = new HashMap<>();
+	public BaseHttpManager setHeaders(Map<String,String> headers){
+		this.headers.clear();
+		for (Map.Entry<String,String> entry:headers.entrySet()) {
+			this.headers.put(entry.getKey(),entry.getValue());
+		}
+		return this;
+	}
 
 	public static String encode(String str, String charset) throws UnsupportedEncodingException {
 		Pattern p = Pattern.compile(zhPattern);

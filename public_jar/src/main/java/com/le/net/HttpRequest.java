@@ -1,6 +1,7 @@
 package com.le.net;
 
 import com.alibaba.fastjson.JSON;
+import com.le.utils.HttpManager;
 import com.le.utils.MLog;
 
 import java.io.ByteArrayOutputStream;
@@ -18,6 +19,9 @@ import java.util.Map;
  *
  */
 public class HttpRequest {
+
+    HttpRequest(){}
+
     HttpRequest(PipedInputStream pis) {
        this.pis = pis;
     }

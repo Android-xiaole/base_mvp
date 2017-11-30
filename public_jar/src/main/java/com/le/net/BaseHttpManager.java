@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -38,7 +39,7 @@ public abstract class BaseHttpManager {
 		m.appendTail(b);
 		return b.toString();
 	}
-	
+
     public Thread makeRequest(final String url, final IHttpHandler callback) {
       final Thread thread = new Thread(new Runnable() {
             @Override
@@ -51,7 +52,7 @@ public abstract class BaseHttpManager {
 					conn.setReadTimeout(10000);//读取超时
 //                    final PipedInputStream pis0 = new PipedInputStream();
                     final ByteArrayOutputStream output = new ByteArrayOutputStream();
-                    final HttpRequest httpRequest = new HttpRequest(output);
+					final HttpRequest httpRequest = new HttpRequest(output);
                     BaseHttpManager.this.requestFilter(httpRequest);
 
                     callback.req = httpRequest;
@@ -241,9 +242,18 @@ public abstract class BaseHttpManager {
 //            callback.hander.sendEmptyMessage(2);
 //        }
     }
-    
-    private static void sendHeaders(HttpURLConnection conn, Map<String, String> headers) {
-    	for (Map.Entry<String, String> header : headers.entrySet()) {
+
+	/**
+	 * setRequestProperty方法，如果key存在，则覆盖；不存在，直接添加。
+	 	addRequestProperty方法，不管key存在不存在，直接添加。
+	 * @param conn
+	 * @param headers
+	 */
+	private static void sendHeaders(HttpURLConnection conn, Map<String, String> headerss) {
+    	for (Map.Entry<String, String> header : headerss.entrySet()) {
+			conn.setRequestProperty(header.getKey(), header.getValue());
+		}
+		for (Map.Entry<String, String> header : headers.entrySet()) {
 			conn.setRequestProperty(header.getKey(), header.getValue());
 		}
     }
@@ -275,6 +285,20 @@ public abstract class BaseHttpManager {
         ops.write(bs, 0, bs.length);
         ops.flush();
     }
+
+    public static Map<String,String> headers = new HashMap<>();
+    public BaseHttpManager setHeaders(Map<String,String> headers){
+    	this.headers.clear();
+		for (Map.Entry<String,String> entry:headers.entrySet()) {
+			this.headers.put(entry.getKey(),entry.getValue());
+		}
+		return this;
+	}
+
+//	public BaseHttpManager setHeaders(String key,String value){
+//    	this.headers.put(key,value);
+//    	return this;
+//	}
 
     public abstract boolean requestFilter(HttpRequest httpRequest) throws Exception;
     public abstract boolean responseFilter(HttpResponse httpResponse) throws Exception;
