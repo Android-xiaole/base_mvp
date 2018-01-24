@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 15
@@ -49,6 +49,6 @@ dependencies {
     //处理android5.0以上危险权限申请的库 使用方法见：https://github.com/yanzhenjie/AndPermission/blob/master/README-CN.md
     compile 'com.alibaba:fastjson:1.2.31'
     //解析json的库`
-    compile 'com.blankj:utilcode:1.8.6'//快速开发工具库
+    compile 'com.blankj:utilcode:1.9.10'//快速开发工具库
 }
 

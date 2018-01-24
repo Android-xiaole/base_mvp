@@ -29,6 +29,7 @@ public class Frag_page1 extends BaseFragment<IBaseView,MainPresenter> implements
 
     @Override
     protected void onCreateMy(Bundle savedInstanceState) {
+        showProgress();
         presenter.visitBaiDu();
     }
 
@@ -47,9 +48,11 @@ public class Frag_page1 extends BaseFragment<IBaseView,MainPresenter> implements
     public void onResponse(int flag, Object result) {
         switch (flag){
             case MainPresenter.visitBaiDuRespones:
-                textView.setText((CharSequence) result);
+                dismissProgress();
+                textView.setText((String) result);
                 break;
             case MainPresenter.loginError:
+                dismissProgress();
                 textView.setText(((Exception)result).getMessage());
                 break;
         }

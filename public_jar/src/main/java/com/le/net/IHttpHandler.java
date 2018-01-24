@@ -24,7 +24,7 @@ public abstract class IHttpHandler {
 					if (httpManager.responseFilter(res)) {
 						IHttpHandler.this.done();
 					}else {
-						throw new Exception("未登录");
+						throw new Exception("httpcode返回异常");
 					}
 
 					remote.sendEmptyMessage(2);

@@ -19,7 +19,6 @@ public class MainPresenter extends BasePresenter<IBaseView> {
     public static final int loginRes = 2;
     public static final int loginError = 3;
 
-
     public void visitBaiDu() {
         HttpManager.get("https://www.baidu.com", null, new StringCallBack() {
             @Override

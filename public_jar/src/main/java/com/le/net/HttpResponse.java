@@ -15,15 +15,17 @@ import java.util.Map;
  *
  */
 public class HttpResponse {
-	HttpResponse(int sc, Map<String, List<String>> fs, InputStream is) {
+	HttpResponse(int sc, Map<String, List<String>> fs, String strRes) {
 		statusCode = sc;
 		fields = fs;
-		inputStream = is;
+//		inputStream = is;
+		this.strRes = strRes;
 	}
 
 	public int statusCode;
 	private Map<String, List<String>> fields;
-	public InputStream inputStream;
+//	public InputStream inputStream;
+	public String strRes;
 
 	public List<String> getHeaders(String key) {
 		for (Map.Entry<String, List<String>> entry : fields.entrySet()) {
@@ -40,19 +42,20 @@ public class HttpResponse {
 	private String str;
 
 	public String getString() throws IOException {
-		if (str == null) {
-			str = "";
-			BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
-			while(true) {
-				String line = rd.readLine();
-				if(line != null) {
-					str += line + "\n";
-				} else {
-					break;
-				}
-			}
-		}
-		return this.str;
+		return strRes;
+//		if (str == null) {
+//			str = "";
+//			BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
+//			while(true) {
+//				String line = rd.readLine();
+//				if(line != null) {
+//					str += line + "\n";
+//				} else {
+//					break;
+//				}
+//			}
+//		}
+//		return this.str;
 	}
 
 	/**

@@ -9,14 +9,20 @@ import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.ideven.myapplication.api.Login_res;
+import com.ideven.myapplication.api.MyAilas;
 import com.ideven.myapplication.api.Test;
 import com.ideven.myapplication.presenter.MainPresenter;
 import com.le.base.BaseActivity;
 import com.le.base.IBaseView;
+import com.le.net.HttpManagerWithCookie;
+import com.le.net.IHttpHandler;
 import com.le.utils.MLog;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implements IBaseView,View.OnClickListener{
 
@@ -72,7 +78,8 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
                 presenter.visitBaiDu();
                 break;
             case R.id.button6:
-                presenter.login();
+//                presenter.login();
+                loginTest();
                 break;
             case R.id.button7:
                 String jsonArray = "[{\"circleComment\":\"~!@#$%^&*()_+\"}]";
@@ -83,6 +90,24 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
                 }
                 break;
         }
+    }
+
+    private void loginTest(){
+        String token = "5942E5563E1CB8644EB2AAD0FD6B4213";
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("token",token);
+        HttpManagerWithCookie httpManager = new HttpManagerWithCookie();
+        httpManager.setHeaders(headers).makeRequest("http://192.168.8.130:8080/sealfinance-api/user/updateDevice",new IHttpHandler() {
+            @Override
+            public void start() throws Exception {
+                req.writeJson(new MyAilas("13"));
+            }
+
+            @Override
+            public void done() throws Exception {
+                MLog.e(res.getString());
+            }
+        });
     }
 
     private void showDialog(String msg){
@@ -97,8 +122,10 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
         LogUtils.e(result);
         switch (flag){
             case MainPresenter.visitBaiDuRespones:
-                showDialog((String) result);
                 dismissProgress();
+//                showDialog((String) result);
+//                showDialog("加载完成");
+                ToastUtils.showLong((String)result);
                 break;
             case MainPresenter.visitBaiDuError:
                 showDialog(((Exception)result).getMessage());
