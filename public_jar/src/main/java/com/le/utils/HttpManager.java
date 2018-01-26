@@ -10,9 +10,19 @@ import java.util.Map;
  */
 
 public class HttpManager {
-    public static HttpManagerWithCookie httpManager = new HttpManagerWithCookie();
 
-    public static void get(String url,Map<String,String> parames,final StringCallBack callBack){
+    public static HttpManager manager;
+    public static HttpManagerWithCookie httpManager;
+
+    public static HttpManager getInstance(){
+        if (manager == null){
+            manager = new HttpManager();
+            httpManager = new HttpManagerWithCookie();
+        }
+        return manager;
+    }
+
+    public void get(String url,Map<String,String> parames,final StringCallBack callBack){
         StringBuilder finalUrl = new StringBuilder(url+"?");
         if (parames!=null){
             for (Map.Entry<String,String> entry:parames.entrySet()) {
@@ -38,7 +48,7 @@ public class HttpManager {
         });
     }
 
-    public static void postForm(String url, final Map<String,String> parames, final StringCallBack callBack){
+    public void postForm(String url, final Map<String,String> parames, final StringCallBack callBack){
         httpManager.makeRequest(url, new IHttpHandler() {
             @Override
             public void start() throws Exception {
@@ -58,7 +68,7 @@ public class HttpManager {
         });
     }
 
-    public static void postJson(String url, final Object json, final StringCallBack callBack){
+    public void postJson(String url, final Object json, final StringCallBack callBack){
         httpManager.makeRequest(url, new IHttpHandler() {
             @Override
             public void start() throws Exception {
@@ -76,6 +86,11 @@ public class HttpManager {
                 super.error(e);
             }
         });
+    }
+
+    public static HttpManager setHeaders(Map<String,String> headers){
+        httpManager.setHeaders(headers);
+        return manager;
     }
 
 }

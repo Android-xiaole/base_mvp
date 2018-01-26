@@ -17,6 +17,7 @@ import java.util.List;
 public class Act_ListView extends BaseActivity{
 
     private ListView listView;
+    private List<String> list;
 
 
     @Override
@@ -25,24 +26,24 @@ public class Act_ListView extends BaseActivity{
     }
 
     @Override
-    protected void initUI() {
-        listView = (ListView) findViewById(R.id.listView);
-        List<String> list = new ArrayList<>();
-        list.add("按钮1");
-        list.add("按钮2");
-        list.add("按钮3");
-        list.add("按钮4");
-        list.add("按钮5");
-        listView.setAdapter(new MyAdapter(this,list));
-    }
-
-    @Override
     protected BasePresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreateMy(Bundle savedInstanceState) {
-
+    protected void initDatas() {
+        listView = (ListView) findViewById(R.id.listView);
+        list = new ArrayList<>();
+        list.add("按钮1");
+        list.add("按钮2");
+        list.add("按钮3");
+        list.add("按钮4");
+        list.add("按钮5");
     }
+
+    @Override
+    protected void configViews() {
+        listView.setAdapter(new MyAdapter(this,list));
+    }
+
 }

@@ -52,6 +52,6 @@ public abstract class IHttpHandler {
     public abstract void start() throws Exception;
     public abstract void done() throws Exception;
     public void error(Exception e) throws Exception {
-    	throw e;//默认将异常抛给HttpManagerWithCookie里面的error处理，如果自己想直接处理 那就在实现的时候不要继承父类实现方法
+    	throw e;//默认将异常抛给HttpManagerWithCookie里面的error处理，如果自己想直接处理 那就在实现的时候不要实现父类实现方法
     }
 }

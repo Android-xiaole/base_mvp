@@ -20,7 +20,7 @@ public class MainPresenter extends BasePresenter<IBaseView> {
     public static final int loginError = 3;
 
     public void visitBaiDu() {
-        HttpManager.get("https://www.baidu.com", null, new StringCallBack() {
+        HttpManager.getInstance().get("https://www.baidu.com", null, new StringCallBack() {
             @Override
             public void onResponse(String res) {
                 mView.onResponse(visitBaiDuRespones,res);
@@ -37,7 +37,7 @@ public class MainPresenter extends BasePresenter<IBaseView> {
         final Map<String,String> parames = new HashMap<>();
         parames.put("login","15800000000");
         parames.put("password","kaitai");
-        HttpManager.postForm("https://app6.idevent.cn/account/login", parames, new StringCallBack() {
+        HttpManager.getInstance().postForm("https://app6.idevent.cn/account/login", parames, new StringCallBack() {
             @Override
             public void onResponse(String res) {
                 mView.onResponse(loginRes,res);

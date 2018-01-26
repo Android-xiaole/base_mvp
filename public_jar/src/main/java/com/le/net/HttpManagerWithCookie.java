@@ -1,5 +1,6 @@
 package com.le.net;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.le.utils.MLog;
 import com.le.base.BaseConfig;
 
@@ -60,6 +61,7 @@ public class HttpManagerWithCookie extends BaseHttpManager {
 	public void error(Exception e) {
 		e.printStackTrace();
 		MLog.e(this.getClass().getSimpleName()+"未处理的异常:"+e);
+		ToastUtils.showShort(e+"");
 	}
 	
 }

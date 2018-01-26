@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.LogUtils;
 import com.le.utils.MyUtils;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by sahara on 2017/4/27.
  */
@@ -22,8 +24,8 @@ public abstract class BaseFragment<E,T extends BasePresenter<E>> extends BackHan
 
     protected abstract int setContentViewID();
     protected abstract T getPresenter();
-    protected abstract void onCreateMy(Bundle savedInstanceState);
-    protected abstract void onCreateViewMy(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract void initDatas();
+    protected abstract void configViews();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public abstract class BaseFragment<E,T extends BasePresenter<E>> extends BackHan
             LogUtils.e(e);
             e.printStackTrace();
         }
-        onCreateMy(savedInstanceState);
     }
 
     @Nullable
@@ -48,7 +49,6 @@ public abstract class BaseFragment<E,T extends BasePresenter<E>> extends BackHan
                 throw new RuntimeException("can not find "+this.getClass().getSimpleName()+" layout resource id");
             }
             mView = inflater.inflate(r,null);
-            onCreateViewMy(inflater,container,savedInstanceState);
         }else{
             ViewGroup viewGroup = (ViewGroup) mView.getParent();
             if (viewGroup!=null){
@@ -56,6 +56,14 @@ public abstract class BaseFragment<E,T extends BasePresenter<E>> extends BackHan
             }
         }
         return mView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        initDatas();
+        configViews();
     }
 
     @Override

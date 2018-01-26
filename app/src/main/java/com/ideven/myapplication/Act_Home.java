@@ -19,21 +19,20 @@ public class Act_Home extends BaseActivity implements View.OnClickListener{
     }
 
     @Override
-    protected void initUI() {
-        frags.add(new Frag_page1());
-        frags.add(new Frag_page2());
-        frags.add(new Frag_page3());
-        loadFragment(0);
-    }
-
-    @Override
     protected BasePresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreateMy(Bundle savedInstanceState) {
+    protected void initDatas() {
+        frags.add(new Frag_page1());
+        frags.add(new Frag_page2());
+        frags.add(new Frag_page3());
+    }
 
+    @Override
+    protected void configViews() {
+        loadFragment(0);
     }
 
     @Override

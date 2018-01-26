@@ -1,13 +1,12 @@
 package com.ideven.myapplication;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ideven.myapplication.presenter.MainPresenter;
 import com.le.base.BaseFragment;
 import com.le.base.IBaseView;
+
+import butterknife.BindView;
 
 /**
  * Created by sahara on 2017/5/2.
@@ -15,7 +14,7 @@ import com.le.base.IBaseView;
 
 public class Frag_page1 extends BaseFragment<IBaseView,MainPresenter> implements IBaseView {
 
-    private TextView textView;
+    @BindView(R.id.textView) TextView textView;
 
     @Override
     protected int setContentViewID() {
@@ -28,14 +27,14 @@ public class Frag_page1 extends BaseFragment<IBaseView,MainPresenter> implements
     }
 
     @Override
-    protected void onCreateMy(Bundle savedInstanceState) {
+    protected void initDatas() {
         showProgress();
         presenter.visitBaiDu();
     }
 
     @Override
-    protected void onCreateViewMy(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        textView = (TextView) mView.findViewById(R.id.textView);
+    protected void configViews() {
+
     }
 
     @Override
@@ -51,7 +50,7 @@ public class Frag_page1 extends BaseFragment<IBaseView,MainPresenter> implements
                 dismissProgress();
                 textView.setText((String) result);
                 break;
-            case MainPresenter.loginError:
+            case MainPresenter.visitBaiDuError:
                 dismissProgress();
                 textView.setText(((Exception)result).getMessage());
                 break;

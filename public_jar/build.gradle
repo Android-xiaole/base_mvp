@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 25
@@ -50,5 +51,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.31'
     //解析json的库`
     compile 'com.blankj:utilcode:1.9.10'//快速开发工具库
+    compile rootProject.ext.dependencies.butterKnife
+    annotationProcessor rootProject.ext.dependencies.butterKnifeCompiler
 }
 

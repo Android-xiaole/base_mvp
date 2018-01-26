@@ -1,0 +1,18 @@
+ext {
+    //Android
+    androidBuildToolsVersion = ""
+    androidMinSdkVersion = ""
+    androidTargetSdkVersion = ""
+    androidCompileSdkVersion = ""
+    androidVersionCode = ""
+    androidVersionName = ""
+
+    //Libraries
+    butterKnifeVersion = '8.8.1'
+    butterKnifeCompilerVersion = '8.8.1'
+
+    dependencies = [
+            butterKnife : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnifeCompiler : "com.jakewharton:butterknife-compiler:${butterKnifeCompilerVersion}"
+    ]
+}

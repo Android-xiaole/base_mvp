@@ -255,6 +255,7 @@ public abstract class BaseHttpManager {
         for (Map.Entry<String, String> header : headers.entrySet()) {
             conn.setRequestProperty(header.getKey(), header.getValue());
         }
+        headers.clear();
     }
 
     private static void sendBody(HttpURLConnection conn, HttpRequest req, ByteArrayOutputStream pis) throws IOException, InterruptedException {

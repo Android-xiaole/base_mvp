@@ -2,6 +2,8 @@ package com.ideven.myapplication;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +20,17 @@ import com.le.base.BaseActivity;
 import com.le.base.IBaseView;
 import com.le.net.HttpManagerWithCookie;
 import com.le.net.IHttpHandler;
+import com.le.utils.HttpManager;
 import com.le.utils.MLog;
+import com.le.utils.StringCallBack;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implements IBaseView,View.OnClickListener{
 
@@ -31,16 +39,8 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
         return R.layout.activity_main;
     }
 
-    private Button button5;
-    private EditText editText;
-    @Override
-    protected void initUI() {
-        button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(this);
-        editText = (EditText) findViewById(R.id.editText);
-        String html = "<font color=00ffff>请输入用户名</font>";
-        editText.setText(Html.fromHtml(html));
-    }
+    @BindView(R.id.button5) Button button5;
+    @BindView(R.id.editText) EditText editText;
 
     @Override
     protected MainPresenter getPresenter() {
@@ -48,8 +48,15 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
     }
 
     @Override
-    protected void onCreateMy(Bundle savedInstanceState) {
-        //can use UI to do something
+    protected void initDatas() {
+
+    }
+
+    @Override
+    protected void configViews() {
+        button5.setOnClickListener(this);
+        String html = "请输入<font color='red'><big>用户名</big></font>";
+        editText.setText(Html.fromHtml(html));
     }
 
     @Override
@@ -96,16 +103,15 @@ public class MainActivity extends BaseActivity<IBaseView,MainPresenter> implemen
         String token = "5942E5563E1CB8644EB2AAD0FD6B4213";
         HashMap<String, String> headers = new HashMap<>();
         headers.put("token",token);
-        HttpManagerWithCookie httpManager = new HttpManagerWithCookie();
-        httpManager.setHeaders(headers).makeRequest("http://192.168.8.130:8080/sealfinance-api/user/updateDevice",new IHttpHandler() {
+        HttpManager.getInstance().setHeaders(headers).postJson("http://192.168.8.130:8080/sealfinance-api/user/updateDevice",new MyAilas("13"), new StringCallBack() {
             @Override
-            public void start() throws Exception {
-                req.writeJson(new MyAilas("13"));
+            public void onResponse(String res) {
+                LogUtils.e(res);
             }
 
             @Override
-            public void done() throws Exception {
-                MLog.e(res.getString());
+            public void onError(Exception e) {
+                LogUtils.e(e+"");
             }
         });
     }

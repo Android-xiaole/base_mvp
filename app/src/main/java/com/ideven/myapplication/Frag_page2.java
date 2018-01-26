@@ -25,12 +25,12 @@ public class Frag_page2 extends BaseFragment{
     }
 
     @Override
-    protected void onCreateMy(Bundle savedInstanceState) {
+    protected void initDatas() {
 
     }
 
     @Override
-    protected void onCreateViewMy(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void configViews() {
 
     }
 

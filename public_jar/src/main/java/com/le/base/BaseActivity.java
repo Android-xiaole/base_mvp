@@ -13,6 +13,9 @@ import com.le.utils.MyUtils;
 import com.zhy.autolayout.AutoLayoutActivity;
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
+
 /**
  * Created by sahara on 2017/4/27.
  */
@@ -28,9 +31,9 @@ public abstract class BaseActivity<E,T extends BasePresenter<E>> extends AutoLay
     protected T presenter;
 
     protected abstract int setContentViewID();
-    protected abstract void initUI();
     protected abstract T getPresenter();
-    protected abstract void onCreateMy(Bundle savedInstanceState);
+    protected abstract void initDatas();
+    protected abstract void configViews();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public abstract class BaseActivity<E,T extends BasePresenter<E>> extends AutoLay
             }
         }
         setContentView(setContentViewID());
+        ButterKnife.bind(this);
         presenter = getPresenter();
         try{//这里处理一下异常，因为并不是每个activity都需要presenter
             presenter.attach((E)this);
@@ -55,8 +59,8 @@ public abstract class BaseActivity<E,T extends BasePresenter<E>> extends AutoLay
             LogUtils.e(e);
         }
 
-        initUI();
-        onCreateMy(savedInstanceState);
+        initDatas();
+        configViews();
     }
 
     protected void loadFragment(int position) {
