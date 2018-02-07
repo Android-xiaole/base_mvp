@@ -40,7 +40,6 @@ dependencies {
 //    })
     //单元测试
 //    testCompile 'junit:junit:4.12'
-    compile 'com.zhy:autolayout:1.4.5'
     //万能适配的库
     compile 'com.android.support:multidex:1.0.1'
     //这是防止app方法数超过AS的编译限制（可以超过64k）但是要在你的app的gradle里面加上 multiDexEnabled true//编译方法数量可以超过64k
@@ -48,10 +47,10 @@ dependencies {
     //这是腾讯的抓取异常的库 自己要在BaseApplication里面配置一下ID
     compile 'com.yanzhenjie:permission:1.0.6'
     //处理android5.0以上危险权限申请的库 使用方法见：https://github.com/yanzhenjie/AndPermission/blob/master/README-CN.md
-    compile 'com.alibaba:fastjson:1.2.31'
-    //解析json的库`
-    compile 'com.blankj:utilcode:1.9.10'//快速开发工具库
-    compile rootProject.ext.dependencies.butterKnife
+    compile rootProject.ext.dependencies.autoLayout //万能适配的库
+    compile rootProject.ext.dependencies.fastJson //解析json的库
+    compile rootProject.ext.dependencies.utilcode //快速开发工具库
+    compile rootProject.ext.dependencies.butterKnife //控件注解库
     annotationProcessor rootProject.ext.dependencies.butterKnifeCompiler
 }
 

@@ -48,7 +48,7 @@ public abstract class BaseFragment<E,T extends BasePresenter<E>> extends BackHan
             if (r == 0){
                 throw new RuntimeException("can not find "+this.getClass().getSimpleName()+" layout resource id");
             }
-            mView = inflater.inflate(r,null);
+            mView = inflater.inflate(r,container,false);
         }else{
             ViewGroup viewGroup = (ViewGroup) mView.getParent();
             if (viewGroup!=null){
