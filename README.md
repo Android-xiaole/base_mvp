@@ -18,3 +18,6 @@ android快速开发框架 基于mvp设计模式
  最后在app或者你要使用的库的 build.gradle 文件里面的dependencies标签下面添加
  
      compile 'com.github.Android-xiaole:base_mvp:v1.0.0'
+     
+# 此版本库已停止更新
+已迁移至：https://github.com/Android-xiaole/MVPDemo
